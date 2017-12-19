@@ -11,11 +11,12 @@ function Square(props) {
 }
 class Board extends React.Component {
   constructor(props) {
-        //board has state stored so squares rerender automatically whenever state changes
+      //board has state stored so squares rerender automatically whenever state changes
     super(props);
     this.state = {
       //set initial state to contain array of 9 nulls to correspond to 9 squares
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      xIsNext: true,
     };
   }
 
@@ -24,7 +25,9 @@ class Board extends React.Component {
     const squares = this.state.squares.slice();
     squares[i] = 'x';
     this.setState({
-      squares: squares
+      squares: squares,
+      // flip the value of isNext when it's clicked so x & o can take turns
+      xIsNext: !this.state.xIsNext,
     });
   }
 
@@ -40,7 +43,8 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    // displays who is next
+    const status = 'Next Player: ' + (this.state.isNext ? 'x' : 'o');
 
     return (
       <div>
