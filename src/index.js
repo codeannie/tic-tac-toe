@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-class Square extends React.Component {
-  render() {
-    return (
-      // onClick prop tells React to setup click event listener
-      // when button is clicked, React will call onClick event handler in Square's render() method
-      // this calls this.props.onClick() -- informs Parent component when clicked
-      <button className="square" onClick={() => this.props.onClick()}>
-        {this.props.value}
-      </button>
-    );
-  }
-}
 
+function Square(props) {
+  return (
+    <button className="squares" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
+}
 class Board extends React.Component {
   constructor(props) {
         //board has state stored so squares rerender automatically whenever state changes
@@ -32,6 +27,7 @@ class Board extends React.Component {
       squares: squares
     });
   }
+
   renderSquare(i) {
     return ( 
       <Square 
