@@ -2,25 +2,45 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 class Square extends React.Component {
-  constructor(props) {
-    super(props);
-      this.state = {
-        value: null
-      };
-  }
-
   render() {
     return (
-      <button className="square" onClick={() => this.setState({value: 'x'})}>
-        {this.state.value}
+      // onClick prop tells React to setup click event listener
+      // when button is clicked, React will call onClick event handler in Square's render() method
+      // this calls this.props.onClick() -- informs Parent component when clicked
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+        //board has state stored so squares rerender automatically whenever state changes
+    super(props);
+    this.state = {
+      //set initial state to contain array of 9 nulls to correspond to 9 squares
+      squares: Array(9).fill(null)
+    };
+  }
+
+  handleClick(i) {
+    //use slice to copy squares array prior to making changes 
+    const squares = this.state.squares.slice();
+    squares[i] = 'x';
+    this.setState({
+      squares: squares
+    });
+  }
   renderSquare(i) {
-    return <Square value={i} />;
+    return ( 
+      <Square 
+        value={this.state.squares[i]}
+        // Board passes onClick={() => this.handeClick(i)} to square so when called,
+        // it runs this.handleCLick(i) on the board
+        onClick={() => this.handleClick(i)} 
+        />
+    );
   }
 
   render() {
