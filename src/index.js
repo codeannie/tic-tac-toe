@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.css'; 
 
 function Square(props) {
   return (
-    <button className="squares" onClick={props.onClick}>
+    <button className="square" onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -53,7 +53,7 @@ class Board extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-        status = 'Next Player: ' + (this.state.isNext ? 'x' : 'o');
+        status = 'Next Player: ' + (this.state.xIsNext ? 'x' : 'o');
     }
 
     return (
